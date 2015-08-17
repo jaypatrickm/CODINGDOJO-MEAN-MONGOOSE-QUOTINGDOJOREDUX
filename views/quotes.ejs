@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Quoting Dojo Redux - Quotes</title>
+	<!-- <link rel="stylesheet" href="/stylesheets/style.css" /> -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+
+		function makeDate(x)
+		{
+			var date = new Date(x);
+			var hours = date.getHours();
+			var minutes = date.getMinutes();
+			var ampm = hours >= 12 ? 'pm' : 'am';
+			hours = hours % 12;
+			hours = hours ? hours : 12;
+			minutes = minutes < 10 ? '0' + minutes : minutes;
+			var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+			var month = monthNames[date.getMonth()];
+			var day = date.getDate();
+			var year = date.getFullYear();
+			return hours + ':' + minutes + ampm + ' ' + month + ' ' + day + ' ' + year;
+		}
+		$(document).ready(function() {
+			// this triggers the connection even in our server!
+			var socket = io.connect();
+			socket.on('quotes', function (data) {
+				console.log(data);
+				//console.log(data.users[0].name);
+				for (user in data){
+				 $('ul#quotes').append('<li><p>' + data[user].quote + '</p><h4>- ' + data[user].name +' at ' + makeDate(data[user].date)  + '</h4></li>');
+				}
+				// socket.emit('update_log', { msg : '<li>' + data.response + '</li>' })
+			});
+		})
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<h1>HERE ARE THE AWESOME QUOTES</h1>
+				<ul id="quotes">
+
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

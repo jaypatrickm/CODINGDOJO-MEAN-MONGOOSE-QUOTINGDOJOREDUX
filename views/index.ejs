@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Quoting Dojo Redux</title>
+	<!-- <link rel="stylesheet" href="/stylesheets/style.css" /> -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<h1>WELCOME TO QUOTING DOJO</h1>
+				<% if(typeof(errors) != 'undefined') { %>
+					<% for (var x in errors) { %>
+						<h3><%= errors[x].message %></h3>
+						<% } %>
+					<% } %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<form action="/quotes" method="post">
+					<div class="form-group">
+						<label for="name">Your Name*</label>
+						<input type="text" class="form-control" name="name" placeholder="enter name">
+					</div>
+					<div class="form-group">
+						<label for="quote">Your Quote*</label>
+						<textarea class="form-control" name="quote" placeholder="enter quote"></textarea>
+					</div>
+					<button type="submit" class="btn btn-primary">Add my quote!</button>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2 col-sm-offset-10">
+				<a href="/quotes" type="button" class="btn btn-success">Skip to Quotes</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
